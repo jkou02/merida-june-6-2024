@@ -22,7 +22,6 @@ jobs:
 
       - name: descargar data
         run: |
-<<<<<<< HEAD
           curl -sL "https://companiesmarketcap.com/biotech/largest-companies-by-market-cap/?download=csv" -o companies-Biotech.csv
           if [ ! -s companies-Biotech.csv ]; then
             echo "Downloaded CSV file is empty"
@@ -35,24 +34,6 @@ jobs:
           grep -i Kingdom companies-Biotech.csv  > companies_united_kingdom_biotech.csv
           grep -i France companies-Biotech.csv  > companies_france_biotech.csv
 
-=======
-          curl -sL "https://companiesmarketcap.com/clothing/largest-clothing-companies-by-market-cap/?download=csv" -o from-url-all.csv
-          if [ ! -s from-url-all.csv ]; then
-            echo "Downloaded CSV file is empty"
-            exit 1
-          fi
-
-      - name: crear tabla input
-        run: |
-          cat from-url-all.csv > companies-all.csv
-
-      - name: crear tablas por pais
-        run: |
-          grep -i Germany companies-all.csv  > companies_germany.csv
-          grep -i Kingdom companies-all.csv  > companies_united_kingdom.csv
-          grep -i France companies-all.csv  > companies_france.csv
-          
->>>>>>> refs/remotes/origin/main
       - name: Commit results
         if: always()
         run: |
@@ -62,11 +43,7 @@ jobs:
           git pull --rebase origin main
           git stash list | grep "stash@{0}" && git stash apply
           git add companies*csv
-<<<<<<< HEAD
-          git diff --cached --exit-code || git commit -m "tabla actualizada" --allow-empty
-=======
           git diff --cached --exit-code || git commit -m "tablas actualizada" --allow-empty
->>>>>>> refs/remotes/origin/main
           git push --force-with-lease origin HEAD:main
  
   viendo_eu: # nombre del job
