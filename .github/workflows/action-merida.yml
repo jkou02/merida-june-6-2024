@@ -20,11 +20,19 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: descargar data
+        run: |
+          curl -sL "https://companiesmarketcap.com/biotech/largest-companies-by-market-cap/?download=csv" -o companies-Biotech.csv
+          if [ ! -s companies-Biotech.csv ]; then
+            echo "Downloaded CSV file is empty"
+            exit 1
+          fi  
+
       - name: crear tablas por pais
         run: |
-          grep -i Germany companies-all.csv  > companies_germany.csv
-          grep -i Kingdom companies-all.csv  > companies_united_kingdom.csv
-          grep -i France companies-all.csv  > companies_france.csv
+          grep -i Germany companies-Biotech.csv  > companies_germany_biotech.csv
+          grep -i Kingdom companies-Biotech.csv  > companies_united_kingdom_biotech.csv
+          grep -i France companies-Biotech.csv  > companies_france_biotech.csv
 
       - name: Commit results
         if: always()
@@ -48,10 +56,10 @@ jobs:
       - name: imprimir tabla bruta y neta
         run: |
           echo "tabla desde Empresas Francesas"
-          cat companies_france.csv
+          cat companies_france_biotech.csv
           echo
           echo "tabla desde Empresas Germanas"
-          cat companies_germany.csv
+          cat companies_germany_biotech.csv
 
   viendo_uk: # nombre del job
     needs: analizando_datos # job(s) de los que depende
@@ -63,4 +71,4 @@ jobs:
       - name: imprimir tabla bruta y neta
         run: |
           echo "tabla desde Empreses Inglesas"
-          cat companies_united_kingdom.csv
+          cat companies_united_kingdom_biotech.csv
