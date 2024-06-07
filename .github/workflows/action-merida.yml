@@ -60,27 +60,12 @@ jobs:
 
       - name: imprimir tabla bruta y neta
         run: |
-        if [ -d companies_france_biotech.csv ]; then
-          if [-d companies_germany_biotech]; then
-            echo "tabla desde Empresas Francesas"
-            cat companies_france_biotech.csv
-            echo
-            echo "tabla desde Empresas Germanas"
-            cat companies_germany_biotech.csv
-          fi
-        else
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git diff --quiet || git stash
-          git pull --rebase origin main
-
           echo "tabla desde Empresas Francesas"
           cat companies_france_biotech.csv
           echo
           echo "tabla desde Empresas Germanas"
           cat companies_germany_biotech.csv
-        fi
-
+        
   viendo_uk: # nombre del job
     needs: analizando_datos # job(s) de los que depende
     runs-on: ubuntu-latest # sistema operativo
