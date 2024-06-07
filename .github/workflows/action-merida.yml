@@ -42,7 +42,7 @@ jobs:
           git diff --quiet || git stash
           git pull --rebase origin main
           git stash list | grep "stash@{0}" && git stash apply
-          git add .
+          git add companies*csv
           git diff --cached --exit-code || git commit -m "tabla actualizada" --allow-empty
           git push --force-with-lease origin HEAD:main
  
